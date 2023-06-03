@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import News from "./components/News";
 
 export default class App extends Component {
-  name = "mumin";
   render() {
     return (
       <>

@@ -1,0 +1,45 @@
+{
+    "status": "ok",
+    "totalResults": 3,
+    "articles": [
+        {
+            "source": {
+                "id": "talksport",
+                "name": "TalkSport"
+            },
+            "author": "161385360554578",
+            "title": "Man United FA Cup final blow, Guardiola reveals surprise decision, Allardyce leaves Leeds",
+            "description": "talkSPORT.com brings you all the latest football news, views and transfer gossip from the Premier League and beyond. Top stories: Manchester United suffer another injury blow with Antony set to mis…",
+            "url": "https://talksport.com/football/1440366/football-transfers-live-fa-cup-final-man-united-city-mourinho/",
+            "urlToImage": "https://talksport.com/wp-content/uploads/sites/5/2023/06/HB-TALKSPORT-JUNE-2.jpg?strip=all&quality=100&w=1500&h=1000&crop=1",
+            "publishedAt": "2023-06-02T13:51:31Z",
+            "content": "Jesse Lingard is a free agent after being released by Nottingham Forest.\r\nThe former Manchester United midfielder signed a one-year deal with the City Ground club last summer, in a move that surprise… [+1194 chars]"
+        },
+        {
+            "source": {
+                "id": "four-four-two",
+                "name": "FourFourTwo"
+            },
+            "author": "Ryan Dabbs, Caio Carrieri",
+            "title": "Fred reveals which Liverpool and Manchester City players he hangs out with in his spare time",
+            "description": "Despite Manchester United's rivalries, Fred finds time for some opposition players outside of football",
+            "url": "https://www.fourfourtwo.com/news/fred-reveals-which-liverpool-and-manchester-city-players-he-hangs-out-with-in-his-spare-time",
+            "urlToImage": "https://cdn.mos.cms.futurecdn.net/MjDDAjN7wXnBETcQM6Mwj5-1200-80.jpg",
+            "publishedAt": "2023-06-01T17:00:06Z",
+            "content": "Fred has revealed he spends time with players from Liverpool and Manchester City away from football, the Manchester United midfielder enjoying the company of the Brazilian contingent situated in the … [+1649 chars]"
+        },
+        {
+            "source": {
+                "id": "espn-cric-info",
+                "name": "ESPN Cric Info"
+            },
+            "author": null,
+            "title": "Five famous people (and one cat) you didn't know have ESPNcricinfo profiles | ESPNcricinfo.com",
+            "description": "Why do a footballer, a Nobel laureate and a prime minister (no, not Imran Khan) find themselves in the ESPNcricinfo player database? | ESPNcricinfo.com",
+            "url": "http://www.espncricinfo.com/story/_/id/29102695/five-famous-people-one-cat-know-espncricinfo-profiles",
+            "urlToImage": "https://a.espncdn.com/i/cricket/cricinfo/1221668_1296x1296.gif",
+            "publishedAt": "2020-04-27T07:20:43Z",
+            "content": "Why do a cat, a footballer, a Nobel laureate and a prime minister find themselves in the ESPNcricinfo database? Here are six player profiles you wouldn't have expected we had.\r\nPeter the catThe only … [+5504 chars]"
+        }
+    ]
+}
