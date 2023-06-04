@@ -71,7 +71,7 @@ export default class News extends Component {
         <div className="container my-4">
           <h1 className="mb-4 text-center">NewsMonkey - Daily Headlines</h1>
           {this.state.loading && <Spinner />}
-          <div className="row">
+          <div className="row container">
             {!this.state.loading &&
               this.state.articles.map((element) => {
                 return (
@@ -85,6 +85,9 @@ export default class News extends Component {
                           : "https://www.livemint.com/lm-img/img/2023/06/02/600x338/Go-Digit-s-plans-are-aimed-at-catering-to-the-newl_1678869305996_1685714347108.jpg"
                       }
                       newsUrl={element.url}
+                      author={element.author}
+                      date={element.publishedAt}
+                      source={element.source.name}
                     />
                   </div>
                 );

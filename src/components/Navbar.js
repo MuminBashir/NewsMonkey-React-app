@@ -47,9 +47,9 @@ export default class Navbar extends Component {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    Dropdown
+                    Categories
                   </a>
-                  <ul className="dropdown-menu">
+                  <ul className="dropdown-menu bg-light">
                     <li>
                       <Link className="dropdown-item" to="/Business">
                         Business
