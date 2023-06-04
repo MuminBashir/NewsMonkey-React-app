@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
 
 export default class News extends Component {
   constructor() {
@@ -12,31 +13,43 @@ export default class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${this.state.page}&pageSize=18`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${this.state.page}&pageSize=12`;
+    this.setState({ loading: true });
     let news = await fetch(url);
     let parsedNews = await news.json();
     this.setState({
       articles: parsedNews.articles,
       totalResults: parsedNews.totalResults,
+      loading: false,
     });
   }
 
   handleNext = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${
       this.state.page + 1
-    }&pageSize=18`;
+    }&pageSize=12`;
+    this.setState({ loading: true });
     let news = await fetch(url);
     let parsedNews = await news.json();
-    this.setState({ articles: parsedNews.articles, page: this.state.page + 1 });
+    this.setState({
+      articles: parsedNews.articles,
+      page: this.state.page + 1,
+      loading: false,
+    });
   };
 
   handlePrevious = async () => {
     let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${
       this.state.page - 1
-    }&pageSize=18`;
+    }&pageSize=12`;
+    this.setState({ loading: true });
     let news = await fetch(url);
     let parsedNews = await news.json();
-    this.setState({ articles: parsedNews.articles, page: this.state.page - 1 });
+    this.setState({
+      articles: parsedNews.articles,
+      page: this.state.page - 1,
+      loading: false,
+    });
   };
 
   render() {
@@ -44,23 +57,25 @@ export default class News extends Component {
       <>
         <div className="container my-4">
           <h1 className="mb-4 text-center">NewsMonkey - Daily Headlines</h1>
+          {this.state.loading && <Spinner />}
           <div className="row">
-            {this.state.articles.map((element) => {
-              return (
-                <div className="col-md-4" key={element.url}>
-                  <NewsItem
-                    title={element.title}
-                    desc={element.description}
-                    imgUrl={
-                      element.urlToImage
-                        ? element.urlToImage
-                        : "https://www.livemint.com/lm-img/img/2023/06/02/600x338/Go-Digit-s-plans-are-aimed-at-catering-to-the-newl_1678869305996_1685714347108.jpg"
-                    }
-                    newsUrl={element.url}
-                  />
-                </div>
-              );
-            })}
+            {!this.state.loading &&
+              this.state.articles.map((element) => {
+                return (
+                  <div className="col-md-4" key={element.url}>
+                    <NewsItem
+                      title={element.title}
+                      desc={element.description}
+                      imgUrl={
+                        element.urlToImage
+                          ? element.urlToImage
+                          : "https://www.livemint.com/lm-img/img/2023/06/02/600x338/Go-Digit-s-plans-are-aimed-at-catering-to-the-newl_1678869305996_1685714347108.jpg"
+                      }
+                      newsUrl={element.url}
+                    />
+                  </div>
+                );
+              })}
           </div>
           <div className="d-flex justify-content-between">
             <button
@@ -73,7 +88,7 @@ export default class News extends Component {
             </button>
             <button
               disabled={
-                this.state.page === Math.ceil(this.state.totalResults / 18)
+                this.state.page === Math.ceil(this.state.totalResults / 12)
               }
               type="button"
               className="btn btn-primary"
