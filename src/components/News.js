@@ -6,10 +6,12 @@ import PropTypes from "prop-types";
 export default class News extends Component {
   static propTypes = {
     category: PropTypes.string,
+    pageSize: PropTypes.number,
   };
 
   static defaultProps = {
     category: "general",
+    pageSize: 12,
   };
 
   constructor() {
@@ -21,8 +23,8 @@ export default class News extends Component {
     };
   }
 
-  async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${this.state.page}&pageSize=12`;
+  async updateNews() {
+    const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let news = await fetch(url);
     let parsedNews = await news.json();
@@ -33,36 +35,18 @@ export default class News extends Component {
     });
   }
 
+  async componentDidMount() {
+    this.updateNews();
+  }
+
   handleNext = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${
-      this.props.category
-    }&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${
-      this.state.page + 1
-    }&pageSize=12`;
-    this.setState({ loading: true });
-    let news = await fetch(url);
-    let parsedNews = await news.json();
-    this.setState({
-      articles: parsedNews.articles,
-      page: this.state.page + 1,
-      loading: false,
-    });
+    this.setState({ page: this.state.page + 1 });
+    this.updateNews();
   };
 
   handlePrevious = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${
-      this.props.category
-    }&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${
-      this.state.page - 1
-    }&pageSize=12`;
-    this.setState({ loading: true });
-    let news = await fetch(url);
-    let parsedNews = await news.json();
-    this.setState({
-      articles: parsedNews.articles,
-      page: this.state.page - 1,
-      loading: false,
-    });
+    this.setState({ page: this.state.page - 1 });
+    this.updateNews();
   };
 
   render() {
@@ -104,7 +88,8 @@ export default class News extends Component {
             </button>
             <button
               disabled={
-                this.state.page === Math.ceil(this.state.totalResults / 12)
+                this.state.page ===
+                Math.ceil(this.state.totalResults / this.props.pageSize)
               }
               type="button"
               className="btn btn-primary"
