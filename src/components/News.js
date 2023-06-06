@@ -32,23 +32,28 @@ export default class News extends Component {
     )} News - NewsMonkey`;
   }
 
-  async updateNews() {
+  updateNews = async () => {
+    this.props.setProgress(10);
     const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let news = await fetch(url);
+    this.props.setProgress(30);
     let parsedNews = await news.json();
+    this.props.setProgress(50);
     this.setState({
       articles: parsedNews.articles,
       totalResults: parsedNews.totalResults,
       loading: false,
     });
-  }
+    this.props.setProgress(100);
+  };
 
   async componentDidMount() {
     this.updateNews();
   }
 
   fetchMoreData = async () => {
+    this.props.setProgress(10);
     this.setState({ page: this.state.page + 1 });
     const url = `https://newsapi.org/v2/top-headlines?country=in&category=${
       this.props.category
@@ -56,11 +61,14 @@ export default class News extends Component {
       this.state.page + 1
     }&pageSize=${this.props.pageSize}`;
     let news = await fetch(url);
+    this.props.setProgress(30);
     let parsedNews = await news.json();
+    this.props.setProgress(50);
     this.setState({
       articles: this.state.articles.concat(parsedNews.articles),
       totalResults: parsedNews.totalResults,
     });
+    this.props.setProgress(100);
   };
 
   render() {
