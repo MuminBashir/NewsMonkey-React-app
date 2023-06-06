@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default class News extends Component {
   static propTypes = {
@@ -22,10 +23,13 @@ export default class News extends Component {
     super(props);
     this.state = {
       articles: [],
+      totalResults: -1,
       loading: false,
       page: 1,
     };
-    document.title = `${this.capitalizeFirstLetter(this.props.category)} News - NewsMonkey`;
+    document.title = `${this.capitalizeFirstLetter(
+      this.props.category
+    )} News - NewsMonkey`;
   }
 
   async updateNews() {
@@ -44,14 +48,19 @@ export default class News extends Component {
     this.updateNews();
   }
 
-  handleNext = async () => {
+  fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 });
-    this.updateNews();
-  };
-
-  handlePrevious = async () => {
-    this.setState({ page: this.state.page - 1 });
-    this.updateNews();
+    const url = `https://newsapi.org/v2/top-headlines?country=in&category=${
+      this.props.category
+    }&apiKey=fa9a5defa6f545d1b114bbe425369d8b&page=${
+      this.state.page + 1
+    }&pageSize=${this.props.pageSize}`;
+    let news = await fetch(url);
+    let parsedNews = await news.json();
+    this.setState({
+      articles: this.state.articles.concat(parsedNews.articles),
+      totalResults: parsedNews.totalResults,
+    });
   };
 
   render() {
@@ -59,52 +68,42 @@ export default class News extends Component {
       <>
         <div className="container my-4">
           <h1 className="mb-4 text-center">
-            NewsMonkey - {this.capitalizeFirstLetter(this.props.category)} Headlines
+            NewsMonkey - {this.capitalizeFirstLetter(this.props.category)}{" "}
+            Headlines
           </h1>
-          {this.state.loading && <Spinner />}
-          <div className="row container">
-            {!this.state.loading &&
-              this.state.articles.map((element) => {
+          <InfiniteScroll
+            dataLength={this.state.articles.length}
+            next={this.fetchMoreData}
+            hasMore={this.state.articles.length !== this.state.totalResults}
+            loader={<Spinner />}
+            endMessage={
+              <p className="text-center my-4">
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            <div className="row container overflow-hidden">
+              {this.state.articles.map((element) => {
                 return (
                   <div className="col-md-4" key={element.url}>
                     <NewsItem
-                      title={element.title}
-                      desc={element.description}
+                      title={element.title ? element.title : null}
+                      desc={element.description ? element.description : null}
                       imgUrl={
                         element.urlToImage
                           ? element.urlToImage
                           : "https://www.livemint.com/lm-img/img/2023/06/02/600x338/Go-Digit-s-plans-are-aimed-at-catering-to-the-newl_1678869305996_1685714347108.jpg"
                       }
                       newsUrl={element.url}
-                      author={element.author}
+                      author={element.author ? element.author : "Unknown"}
                       date={element.publishedAt}
                       source={element.source.name}
                     />
                   </div>
                 );
               })}
-          </div>
-          <div className="d-flex justify-content-between">
-            <button
-              disabled={this.state.page === 1}
-              type="button"
-              className="btn btn-primary"
-              onClick={this.handlePrevious}
-            >
-              &larr; Previous
-            </button>
-            <button
-              disabled={
-                this.state.page ===
-                Math.ceil(this.state.totalResults / this.props.pageSize)
-              }
-              type="button"
-              className="btn btn-primary"
-              onClick={this.handleNext}
-            >
-              Next &rarr;
-            </button>
-          </div>
+            </div>
+          </InfiniteScroll>
         </div>
       </>
     );

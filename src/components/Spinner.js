@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class Spinner extends Component {
   render() {
     return (
-      <div className="text-center my-5">
+      <div className="text-center my-4">
         <button className="btn btn-primary" type="button" disabled>
           <span
             className="spinner-border spinner-border-sm"
