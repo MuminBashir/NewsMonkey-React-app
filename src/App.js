@@ -7,6 +7,7 @@ import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
   pageSize = 12;
+  apiKey = process.env.REACT_APP_NEWS_API;
 
   constructor() {
     super();
@@ -30,6 +31,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="general"
                   pageSize={this.pageSize}
                 />
@@ -41,6 +43,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="business"
                   category="business"
                   pageSize={this.pageSize}
@@ -53,6 +56,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="entertainment"
                   category="entertainment"
                   pageSize={this.pageSize}
@@ -65,6 +69,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="health"
                   category="health"
                   pageSize={this.pageSize}
@@ -77,6 +82,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="science"
                   category="science"
                   pageSize={this.pageSize}
@@ -89,6 +95,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="sports"
                   category="sports"
                   pageSize={this.pageSize}
@@ -101,6 +108,7 @@ export default class App extends Component {
               element={
                 <News
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="technology"
                   category="technology"
                   pageSize={this.pageSize}
