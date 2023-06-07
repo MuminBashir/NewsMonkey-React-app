@@ -75,7 +75,12 @@ export default class News extends Component {
     return (
       <>
         <div className="container my-4">
-          <h1 className="mb-4 text-center" style={{ marginTop: "70px" }}>
+          <h1
+            className={`mb-4 text-center text-${
+              this.props.darkMode ? "light" : "dark"
+            }`}
+            style={{ marginTop: "70px" }}
+          >
             NewsMonkey - {this.capitalizeFirstLetter(this.props.category)}{" "}
             Headlines
           </h1>
@@ -85,7 +90,11 @@ export default class News extends Component {
             hasMore={this.state.articles.length !== this.state.totalResults}
             loader={<Spinner />}
             endMessage={
-              <p className="text-center my-4">
+              <p
+                className={`text-center my-4 text-${
+                  this.props.darkMode ? "light" : "dark"
+                }`}
+              >
                 <b>Yay! You have seen it all</b>
               </p>
             }
@@ -95,6 +104,7 @@ export default class News extends Component {
                 return (
                   <div className="col-md-4" key={element.url}>
                     <NewsItem
+                      darkMode={this.props.darkMode}
                       title={element.title ? element.title : null}
                       desc={element.description ? element.description : null}
                       imgUrl={

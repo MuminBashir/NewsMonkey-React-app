@@ -6,7 +6,9 @@ export default class Navbar extends Component {
     return (
       <>
         <nav
-          className="navbar navbar-expand-lg bg-primary fixed-top"
+          className={`navbar navbar-expand-lg bg-${
+            this.props.darkMode ? "dark" : "primary"
+          } fixed-top`}
           data-bs-theme="dark"
         >
           <div className="container-fluid">
@@ -49,7 +51,11 @@ export default class Navbar extends Component {
                   >
                     Categories
                   </a>
-                  <ul className="dropdown-menu bg-light">
+                  <ul
+                    className={`dropdown-menu bg-${
+                      this.props.darkMode ? "dark" : "light"
+                    }`}
+                  >
                     <li>
                       <Link className="dropdown-item" to="/Business">
                         Business
@@ -83,6 +89,21 @@ export default class Navbar extends Component {
                   </ul>
                 </li>
               </ul>
+              <div className="form-check form-switch">
+                <input
+                  className="form-check-input bg-dark"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckChecked"
+                  onClick={this.props.setDarkMode}
+                />
+                <label
+                  className="form-check-label text-light"
+                  htmlFor="flexSwitchCheckChecked"
+                >
+                  Dark/Light Mode
+                </label>
+              </div>
             </div>
           </div>
         </nav>

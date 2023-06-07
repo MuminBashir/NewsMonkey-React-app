@@ -11,11 +11,19 @@ export default class App extends Component {
 
   constructor() {
     super();
-    this.state = { progress: 0 };
+    this.state = { progress: 0, darkMode: false };
   }
 
   setProgress = (progress) => {
     this.setState({ progress: progress });
+  };
+
+  setDarkMode = () => {
+    this.setState({ darkMode: this.state.darkMode ? false : true });
+
+    !this.state.darkMode
+      ? (document.body.style.backgroundColor = "#121212")
+      : (document.body.style.backgroundColor = "white");
   };
 
   render() {
@@ -23,13 +31,17 @@ export default class App extends Component {
       <>
         <BrowserRouter>
           <LoadingBar color="#f11946" progress={this.state.progress} />
-          <Navbar />
+          <Navbar
+            darkMode={this.state.darkMode}
+            setDarkMode={this.setDarkMode}
+          />
           <Routes>
             <Route
               exact
               path="/"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="general"
@@ -42,6 +54,7 @@ export default class App extends Component {
               path="/Business"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="business"
@@ -55,6 +68,7 @@ export default class App extends Component {
               path="/Entertainment"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="entertainment"
@@ -68,6 +82,7 @@ export default class App extends Component {
               path="/Health"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="health"
@@ -81,6 +96,7 @@ export default class App extends Component {
               path="/Science"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="science"
@@ -94,6 +110,7 @@ export default class App extends Component {
               path="/Sports"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="sports"
@@ -107,6 +124,7 @@ export default class App extends Component {
               path="/Technology"
               element={
                 <News
+                  darkMode={this.state.darkMode}
                   setProgress={this.setProgress}
                   apiKey={this.apiKey}
                   key="technology"
